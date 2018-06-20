@@ -9,10 +9,11 @@ import datetime
 
 cp = '&'
 bot = commands.Bot(command_prefix=cp)
+bot.launch_time = datetime.utcnow()
 
 print ('Bot is aan het laden...')
 print ('De command prefix die wordt gebruikt is ' + cp)
-print ('Versie 2.2')
+print ('Versie 1.3')
 
 @bot.event
 async def on_ready():
@@ -127,5 +128,13 @@ async def userinfo(ctx, user: discord.Member):
     embed.add_field(name="Joined", value=user.joined_at)
     embed.set_thumbnail(url=user.avatar_url)
     await bot.say(embed=embed)
+	
+@bot.command(pass_context = True)
+async def uptime(ctx):
+    delta_uptime = datetime.utcnow() - bot.launch_time
+    hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
+    minutes, seconds = divmod(remainder, 60)
+    days, hours = divmod(hours, 24)
+    await bot.say(f"{days}d, {hours}h, {minutes}m, {seconds}s")
 	
 bot.run('hidden')
