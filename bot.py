@@ -5,7 +5,7 @@ import asyncio
 import random
 import json
 import os
-import datetime
+from datetime import *
 
 cp = '&'
 bot = commands.Bot(command_prefix=cp)
@@ -135,6 +135,6 @@ async def uptime(ctx):
     hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
     minutes, seconds = divmod(remainder, 60)
     days, hours = divmod(hours, 24)
-    await bot.say(f"{days}d, {hours}h, {minutes}m, {seconds}s")
+    await bot.say("{days}d, {hours}h, {minutes}m, {seconds}s")
 	
 bot.run('hidden')
