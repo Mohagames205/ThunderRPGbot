@@ -37,6 +37,20 @@ async def on_member_remove(member):
     fmt = ('{} left Warrior Cats RPG!' .format(member))
     await bot.send_message(server, fmt.format(member, member.server))
 	
+
+async def tutorial_uptime():
+    await bot.wait_until_ready()
+    global minutes
+    minutes = 0
+    global hour
+    hour = 0
+    while not bot.is_closed:
+        await asyncio.sleep(60)
+        minutes += 1
+        if minutes == 60:
+            minutes = 0
+            hour += 1
+			
 	
 @bot.listen('on_member_join')
 async def member_join_2(kakmens1):
@@ -131,10 +145,7 @@ async def userinfo(ctx, user: discord.Member):
 	
 @bot.command(pass_context = True)
 async def uptime(ctx):
-    delta_uptime = datetime.utcnow() - bot.launch_time
-    hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
-    minutes, seconds = divmod(remainder, 60)
-    days, hours = divmod(hours, 24)
-    await bot.say("{days}d, {hours}h, {minutes}m, {seconds}s")
-	
+    await bot.say("`I'm online for {0} hours and {1} minutes in the {2} Discord Server. `".format(hour, minutes, ctx.message.server))
+
+bot.loop.create_task(tutorial_uptime())	
 bot.run('hidden')
