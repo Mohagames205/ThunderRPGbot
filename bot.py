@@ -61,14 +61,14 @@ async def member_join_2(kakmens1):
 	
 @bot.command(pass_context = True)
 @commands.has_permissions(kick_members=True)
-async def kick(ctx, userName: discord.User, *, reason):
+async def kick(ctx, userName: discord.User):
     """Kick a user"""
     await bot.kick(userName)
     await bot.say("*** :white_check_mark:  The user {} has been kicked***" .format(userName))
 	
 @bot.command(pass_context = True)
 @commands.has_permissions(ban_members=True)
-async def ban(ctx, userName: discord.User, * ,reason):
+async def ban(ctx, userName: discord.User):
     """Ban a user"""
     await bot.ban(userName)
     await bot.say("*** :white_check_mark: The user {} had been banned***" .format(userName))
@@ -113,6 +113,7 @@ async def mute(ctx, member: discord.Member, time, *, reason):
     await asyncio.sleep("{}".format(time))
     role = discord.utils.get(member.server.roles, name='Muted')
     await bot.remove_roles(member, role)
+	
 @bot.command(pass_context = True)
 @commands.has_role("Staff")
 async def unmute(ctx, member: discord.Member):
