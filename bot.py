@@ -36,64 +36,64 @@ async def on_message(message):
 
     if author_level == 0 and author_xp >= 10:
         set_level(user_id, 1)
-        await bot.send_message(message.channel, "You are Level 1")
+        await bot.send_message(message.channel, "You leveled up to 1")
 
-    if author_level == 1 and author_xp >= 20:
+    if author_level == 1 and author_xp >= 100:
         set_level(user_id, 2)
-        await bot.send_message(message.channel, "You are Level 2")
+        await bot.send_message(message.channel, "You leveled up to level 2")
 		
-    if author_level == 2 and author_xp >= 30:
+    if author_level == 2 and author_xp >= 200:
         set_level(user_id, 3)
-        await bot.send_message(message.channel, "You are Level 3")
-    if author_level == 3 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 3")
+    if author_level == 3 and author_xp >= 300:
         set_level(user_id, 4)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 4 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 4")
+	if author_level == 4 and author_xp >= 400:
         set_level(user_id, 5)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 5 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 5")
+	if author_level == 5 and author_xp >= 500:
         set_level(user_id, 6)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 6 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 6")
+	if author_level == 6 and author_xp >= 600:
         set_level(user_id, 7)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 7 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 7")
+	if author_level == 7 and author_xp >= 700:
         set_level(user_id, 8)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 8 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 8")
+	if author_level == 8 and author_xp >= 850:
         set_level(user_id, 9)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 9 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 9")
+	if author_level == 9 and author_xp >= 1000:
         set_level(user_id, 10)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 10 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 10")
+	if author_level == 10 and author_xp >= 1150:
         set_level(user_id, 11)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 11 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 11")
+	if author_level == 11 and author_xp >= 1300:
         set_level(user_id, 12)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 12 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 12")
+	if author_level == 12 and author_xp >= 1500:
         set_level(user_id, 13)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 13 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 13")
+	if author_level == 13 and author_xp >= 1800:
         set_level(user_id, 14)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 14 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 14")
+	if author_level == 14 and author_xp >= 1900:
         set_level(user_id, 15)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 15 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 15")
+	if author_level == 15 and author_xp >= 2500:
         set_level(user_id, 16)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 17 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 16")
+	if author_level == 17 and author_xp >= 3000:
         set_level(user_id, 18)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 18 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 17")
+	if author_level == 18 and author_xp >= 3600:
         set_level(user_id, 19)
-        await bot.send_message(message.channel, "You are Level 4")
-	if author_level == 19 and author_xp >= 40:
+        await bot.send_message(message.channel, "You leveled up to level 18")
+	if author_level == 19 and author_xp >= 4000:
         set_level(user_id, 20)
-        await bot.send_message(message.channel, "You are Level 4")
-        lvl_role = None
+        await bot.send_message(message.channel, "You leveled up to level 19")
+        #lvl_role = None
         #for role in message.server.roles:
             #if role.name == "level 4":
                 #lvl_role = role
@@ -105,7 +105,7 @@ async def on_message(message):
 
     if message.content.lower().startswith('.lvl'):
         level = get_level(user_id)
-        await bot.send_message(message.channel, "You are level: {}".format(level))
+        await bot.send_message(message.channel, "You leveled up to level: {}".format(level))
 
     user_add_xp(message.author.id, 2)
 
