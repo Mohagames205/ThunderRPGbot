@@ -160,4 +160,4 @@ def get_level(user_id: int):
             return 0
 
 	
-bot.run('NDYwNzc4MzUyODgyNDgzMjAx.DhJtfg.Fhwjv5j7EL-qYd_LC9Tb7w59jck')
+bot.run('hidden')
