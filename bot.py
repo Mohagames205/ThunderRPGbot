@@ -93,8 +93,9 @@ def get_xp(user_id: int):
     if os.path.isfile('users.json'):
         with open('users.json' ,'w') as fp:
             users = json.load(fp)
-        return users[user_id]['xp']
         users.get('user_id', 0)
+        return users[user_id]['xp']
+        
         print("Read done")
     else:
         return 0
