@@ -131,7 +131,7 @@ async def serverinfo(ctx):
     embed.add_field(name="Members", value=len(ctx.message.server.members))
     embed.set_thumbnail(url=ctx.message.server.icon_url)
     await bot.say(embed=embed)
-
+	print("EXC")
 
 @bot.command(pass_context=True)
 async def userinfo(ctx, user: discord.Member):
