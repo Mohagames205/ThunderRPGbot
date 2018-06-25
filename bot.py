@@ -11,7 +11,7 @@ cp = '&'
 bot = commands.Bot(command_prefix=cp)
 bot.launch_time = datetime.utcnow()
 
-print ('Bot is aan het laden...')
+print ('Bot is loading...')
 print ('De command prefix die wordt gebruikt is ' + cp)
 print ('Versie 1.3')
 
