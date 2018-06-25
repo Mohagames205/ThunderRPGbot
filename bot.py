@@ -6,147 +6,158 @@ import random
 import json
 import os
 from datetime import *
+import os.path
 
 cp = '&'
 bot = commands.Bot(command_prefix=cp)
 bot.launch_time = datetime.utcnow()
+gamble_msg_stuff = {}
 
-print ('Bot is loading...')
+print ('Bot is aan het laden...')
 print ('De command prefix die wordt gebruikt is ' + cp)
 print ('Versie 1.3')
 
 @bot.event
 async def on_ready():
     await bot.edit_profile(username="GreyStripe")
-    await bot.change_presence(game=discord.Game(name='Use {}help | Warrior Cats'.format(cp)))
+    await bot.change_presence(game=discord.Game(name="BETA | Level system".format(cp)))
     print('Bot is geladen als')
     print(bot.user.name)
     print(bot.user.id)
 	
 
-@bot.event
-async def on_member_join(member):
-	rollie8 = discord.utils.get(member.server.roles, name="New")
-	await bot.add_roles(member, rollie8)
-	
-
 
 @bot.event
-async def on_member_remove(member):
-    server = member.server.get_channel("434077834684792832")
-    fmt = ('{} left Warrior Cats RPG!' .format(member))
-    await bot.send_message(server, fmt.format(member, member.server))
-	
+async def on_message(message):
+    user_id = message.author.id
 
-async def tutorial_uptime():
-    await bot.wait_until_ready()
-    global minutes
-    minutes = 0
-    global hour
-    hour = 0
-    while not bot.is_closed:
-        await asyncio.sleep(60)
-        minutes += 1
-        if minutes == 60:
-            minutes = 0
-            hour += 1
-			
-	
-@bot.listen('on_member_join')
-async def member_join_2(kakmens1):
-    server = kakmens1.server.get_channel("434077834684792832")
-    fmt = 'Welcome at the {1.name} Discord server, {0.mention}, read the rules and enjoy the server!'
-    await bot.send_message(server, fmt.format(kakmens1, kakmens1.server))
-	
-	
-@bot.command(pass_context = True)
-@commands.has_permissions(kick_members=True)
-async def kick(ctx, userName: discord.User):
-    """Kick a user"""
-    await bot.kick(userName)
-    await bot.say("*** :white_check_mark:  The user {} has been kicked***" .format(userName))
-	
-@bot.command(pass_context = True)
-@commands.has_permissions(ban_members=True)
-async def ban(ctx, userName: discord.User):
-    """Ban a user"""
-    await bot.ban(userName)
-    await bot.say("*** :white_check_mark: The user {} had been banned***" .format(userName))
+    author_level = get_level(user_id)
+    author_xp = get_xp(user_id)
 
+    if author_level == 0 and author_xp >= 10:
+        set_level(user_id, 1)
+        await bot.send_message(message.channel, "You are Level 1")
 
-@bot.command(pass_context = True)
-async def purge(ctx, number):
-	mgs = [] #Empty list to put all the messages in the log
-	number = int(number) #Converting the amount of messages to delete to an integer
-	async for x in bot.logs_from(ctx.message.channel, limit = number):
-		mgs.append(x)
-	await bot.delete_messages(mgs)
-	await bot.say("** {} messages have been deleted:white_check_mark:**".format(number))
-
-@bot.command(pass_context = True)
-async def massdelete(ctx, number):
-    number = int(number) #Converting the amount of messages to delete to an integer
-    counter = 0
-    async for x in bot.logs_from(ctx.message.channel, limit = number):
-        if counter < number:
-            await bot.delete_message(x)
-            counter += 1
-            await asyncio.sleep(1.2) #1.2 second timer so the deleting process can be even
-			
-
-@bot.command(name="8ball")
-async def _ball():
-     await bot.say(random.choice([":8ball: Without a doubt.", ":8ball: Yes definitely. ", ":8ball: Signs point to yes.", ":8ball: Outlook not so good.", ":8ball: Better not tell you now.", ":8ball: Don't count on it.", ":8ball: As I see it, Yes.", ":8ball: Never!"]))
-	 
-@bot.command(pass_context = True)
-async def choose(ctx, choice1, choice2):
-	await bot.say(random.choice([choice1, choice2]))
-	
-@bot.command(pass_context = True)
-@commands.has_role("Staff")
-async def mute(ctx, member: discord.Member, time, *, reason):
-    time  = int(time)
-    role = discord.utils.get(member.server.roles, name='Muted')
-    await bot.add_roles(member, role)
-    channel = ctx.message.channel
-    await bot.send_message(channel, "**:mute:| <@{}> You have been muted for:** {}\n**Reason:** {}\n**Admin/Mod:** <@{}>".format(member.id, time, reason, ctx.message.author.id))
-    await asyncio.sleep("{}".format(time))
-    role = discord.utils.get(member.server.roles, name='Muted')
-    await bot.remove_roles(member, role)
-	
-@bot.command(pass_context = True)
-@commands.has_role("Staff")
-async def unmute(ctx, member: discord.Member):
-	role = discord.utils.get(member.server.roles, name='Muted')
-	await bot.remove_roles(member, role)
-	await bot.say("{} is unmuted!" .format(member))
+    if author_level == 1 and author_xp >= 20:
+        set_level(user_id, 2)
+        await bot.send_message(message.channel, "You are Level 2")
 		
-@bot.command(pass_context=True)
-async def serverinfo(ctx):
-    embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), description="Here's what I could find:", color=0x00ff00)
-    embed.set_author(name="Server Info")
-    embed.add_field(name="Name", value=ctx.message.server.name, inline=True)
-    embed.add_field(name="ID", value=ctx.message.server.id, inline=True)
-    embed.add_field(name="Roles", value=len(ctx.message.server.roles), inline=True)
-    embed.add_field(name="Members", value=len(ctx.message.server.members))
-    embed.set_thumbnail(url=ctx.message.server.icon_url)
-    await bot.say(embed=embed)
-	print("EXC")
+    if author_level == 2 and author_xp >= 30:
+        set_level(user_id, 3)
+        await bot.send_message(message.channel, "You are Level 3")
+    if author_level == 3 and author_xp >= 40:
+        set_level(user_id, 4)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 4 and author_xp >= 40:
+        set_level(user_id, 5)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 5 and author_xp >= 40:
+        set_level(user_id, 6)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 6 and author_xp >= 40:
+        set_level(user_id, 7)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 7 and author_xp >= 40:
+        set_level(user_id, 8)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 8 and author_xp >= 40:
+        set_level(user_id, 9)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 9 and author_xp >= 40:
+        set_level(user_id, 10)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 10 and author_xp >= 40:
+        set_level(user_id, 11)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 11 and author_xp >= 40:
+        set_level(user_id, 12)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 12 and author_xp >= 40:
+        set_level(user_id, 13)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 13 and author_xp >= 40:
+        set_level(user_id, 14)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 14 and author_xp >= 40:
+        set_level(user_id, 15)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 15 and author_xp >= 40:
+        set_level(user_id, 16)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 17 and author_xp >= 40:
+        set_level(user_id, 18)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 18 and author_xp >= 40:
+        set_level(user_id, 19)
+        await bot.send_message(message.channel, "You are Level 4")
+	if author_level == 19 and author_xp >= 40:
+        set_level(user_id, 20)
+        await bot.send_message(message.channel, "You are Level 4")
+        lvl_role = None
+        #for role in message.server.roles:
+            #if role.name == "level 4":
+                #lvl_role = role
 
-@bot.command(pass_context=True)
-async def userinfo(ctx, user: discord.Member):
-    embed = discord.Embed(title="{}'s info".format(user.name), description="Here's what I could find:", color=0x00ff00)
-    embed.add_field(name="Name", value=user.name, inline=True)
-    embed.add_field(name="ID", value=user.id, inline=True)
-    embed.add_field(name="Status", value=user.status, inline=True)
-    embed.add_field(name="Highest role", value=user.top_role)
-    embed.add_field(name="Joined", value=user.joined_at)
-    embed.set_thumbnail(url=user.avatar_url)
-    await bot.say(embed=embed)
+        await bot.add_roles(message.author, lvl_role)
+
+    if message.content.lower().startswith('.xp'):
+        await bot.send_message(message.channel, "You have `{}` points!".format(get_xp(message.author.id)))
+
+    if message.content.lower().startswith('.lvl'):
+        level = get_level(user_id)
+        await bot.send_message(message.channel, "You are level: {}".format(level))
+
+    user_add_xp(message.author.id, 2)
+
+
+def user_add_xp(user_id: int, xp: int):
+    if os.path.isfile("users.json"):
+        try:
+            with open('users.json', 'r') as fp:
+                users = json.load(fp)
+            users[user_id]['xp'] += xp
+            with open('users.json', 'w') as fp:
+                json.dump(users, fp, sort_keys=True, indent=4)
+        except KeyError:
+            with open('users.json', 'r') as fp:
+                users = json.load(fp)
+            users[user_id] = {}
+            users[user_id]['xp'] = xp
+            with open('users.json', 'w') as fp:
+                json.dump(users, fp, sort_keys=True, indent=4)
+    else:
+        users = {user_id: {}}
+        users[user_id]['xp'] = xp
+        with open('users.json', 'w') as fp:
+            json.dump(users, fp, sort_keys=True, indent=4)
+
+
+def get_xp(user_id: int):
+    if os.path.isfile('users.json'):
+        with open('users.json', 'r') as fp:
+            users = json.load(fp)
+        return users[user_id]['xp']
+    else:
+        return 0
+
+
+def set_level(user_id: int, level: int):
+    if os.path.isfile('users.json'):
+        with open('users.json', 'r') as fp:
+            users = json.load(fp)
+        users[user_id]["level"] = level
+        with open('users.json', 'w') as fp:
+            json.dump(users, fp, sort_keys=True, indent=4)
+
+
+def get_level(user_id: int):
+    if os.path.isfile('users.json'):
+        try:
+            with open('users.json', 'r') as fp:
+                users = json.load(fp)
+            return users[user_id]['level']
+        except KeyError:
+            return 0
+
 	
-@bot.command(pass_context = True)
-async def uptime(ctx):
-    await bot.say("`I'm online for {0} hours and {1} minutes in the {2} Discord Server. `".format(hour, minutes, ctx.message.server))
-
-bot.loop.create_task(tutorial_uptime())	
-bot.run('hidden')
+bot.run('NDYwNzc4MzUyODgyNDgzMjAx.DhJtfg.Fhwjv5j7EL-qYd_LC9Tb7w59jck')
