@@ -34,7 +34,7 @@ async def on_member_join(member):
 @bot.event
 async def on_member_remove(member):
     server = member.server.get_channel("434077834684792832")
-    fmt = ('{} left Warrior Cats RPG!' .format(member))
+    fmt = ('{} left Warrior Cats RPG! ' .format(member))
     await bot.send_message(server, fmt.format(member, member.server))
 	
 
@@ -55,7 +55,7 @@ async def tutorial_uptime():
 @bot.listen('on_member_join')
 async def member_join_2(kakmens1):
     server = kakmens1.server.get_channel("434077834684792832")
-    fmt = 'Welcome at the {1.name} Discord server, {0.mention}, read the rules and enjoy the server!'
+    fmt = 'Welcome at {1.name}, {0.mention}, read the rules and enjoy the server!'
     await bot.send_message(server, fmt.format(kakmens1, kakmens1.server))
 	
 	
@@ -64,14 +64,14 @@ async def member_join_2(kakmens1):
 async def kick(ctx, userName: discord.User):
     """Kick a user"""
     await bot.kick(userName)
-    await bot.say("*** :white_check_mark:  The user {} has been kicked***" .format(userName))
+    await bot.say("*** :white_check_mark: {} has been kicked***" .format(userName))
 	
 @bot.command(pass_context = True)
 @commands.has_permissions(ban_members=True)
 async def ban(ctx, userName: discord.User):
     """Ban a user"""
     await bot.ban(userName)
-    await bot.say("*** :white_check_mark: The user {} had been banned***" .format(userName))
+    await bot.say("*** :white_check_mark: {} had been banned***" .format(userName))
 
 
 @bot.command(pass_context = True)
