@@ -31,7 +31,7 @@ async def on_command_error(error, ctx): # Volgorde error en ctx omgekeerd van wa
         permission_names = list(permissions.keys())
         await ctx.bot.send_message(ctx.message.channel, "Mist de permissies: {}".format(permission_names))
     else:
-        await Bot.on_command_error(ctx, error)
+        await bot.on_command_error(ctx, error)
 
 @bot.event
 async def on_member_join(member):
