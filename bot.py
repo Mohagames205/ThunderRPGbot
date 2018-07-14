@@ -23,6 +23,15 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
 	
+@bot.event
+async def on_command_error(ctx, error): # Volgorde error en ctx omgekeerd van wat documentatie zegt
+    if isinstance(error, commands.CheckFailure): # commands.MissingPermissions bestaat niet in deze versie
+        permission_check = ctx.command.checks[0] # Gaat er van uit dat er maar 1 check voor die commando is, nl. de permissie check
+        permissions = permission_check.__closure__[0].cell_contents # Python magie omdat discord.py geen manier voorziet om hier aan te geraken
+        permission_names = list(permissions.keys())
+        await ctx.bot.send_message(ctx.message.channel, "Mist de permissies: {}".format(permission_names))
+    else:
+        await Bot.on_command_error(ctx, error)
 
 @bot.event
 async def on_member_join(member):
