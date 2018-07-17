@@ -158,4 +158,4 @@ async def uptime(ctx):
     await bot.say("`I'm online for {0} hours and {1} minutes in the {2} Discord Server. `".format(hour, minutes, ctx.message.server))
 
 bot.loop.create_task(tutorial_uptime())	
-bot.run(os.env('TOKEN'))
+bot.run(os.getenv('TOKEN'))
