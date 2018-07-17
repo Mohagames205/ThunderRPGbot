@@ -7,7 +7,7 @@ import json
 import os
 from datetime import *
 
-cp = '&'
+cp = '$'
 bot = commands.Bot(command_prefix=cp)
 bot.launch_time = datetime.utcnow()
 
@@ -18,7 +18,7 @@ print ('Versie 1.3')
 @bot.event
 async def on_ready():
     await bot.edit_profile(username="GreyStripe")
-    await bot.change_presence(game=discord.Game(name='Use {}help | Warrior Cats'.format(cp)))
+    await bot.change_presence(game=discord.Game(name='{}help | Warrior Cats'.format(cp)))
     print('Bot is geladen als')
     print(bot.user.name)
     print(bot.user.id)
@@ -80,10 +80,11 @@ async def kick(ctx, userName: discord.User):
 async def ban(ctx, userName: discord.User):
     """Ban a user"""
     await bot.ban(userName)
-    await bot.say("*** :white_check_mark: {} had been banned***" .format(userName))
+    await bot.say("*** :white_check_mark: {} has been banned***" .format(userName))
 
 
 @bot.command(pass_context = True)
+@commands.has_permissions(manage_messages = True)
 async def purge(ctx, number):
 	mgs = [] #Empty list to put all the messages in the log
 	number = int(number) #Converting the amount of messages to delete to an integer
@@ -93,6 +94,7 @@ async def purge(ctx, number):
 	await bot.say("** {} messages have been deleted:white_check_mark:**".format(number))
 
 @bot.command(pass_context = True)
+@commands.has_permissions(manage_messages = True)
 async def massdelete(ctx, number):
     number = int(number) #Converting the amount of messages to delete to an integer
     counter = 0
