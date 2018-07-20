@@ -60,6 +60,11 @@ async def tutorial_uptime():
             minutes = 0
             hour += 1
 			
+@bot.event
+async def on_message(message):
+	if message.content.upper().startswith('YEET'):
+		await bot.send_message(message.channel, "Dabs on you!")
+
 	
 @bot.listen('on_member_join')
 async def member_join_2(kakmens1):
