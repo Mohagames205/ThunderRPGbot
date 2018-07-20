@@ -64,7 +64,7 @@ async def tutorial_uptime():
 async def on_message(message):
 	if message.content.upper().startswith('YEET'):
 		await bot.send_message(message.channel, "Dabs on you!")
-	if message.content.upper().startswith('HI'):
+	elif message.content.upper().startswith('HI'):
 		await bot.send_message(message.channel, "Hi how are u doing?")
 	await bot.process_commands(message)
 	
