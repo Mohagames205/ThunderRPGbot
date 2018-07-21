@@ -59,7 +59,7 @@ async def on_message(message):
     if message.content.lower().startswith('hi'):
         await bot.send_message(message.channel, "Hello, how are you doing <@{}>" .format(message.author.id))
 		
-	await bot.process_commands(message) #dit zorgt ervoor dat de andere commands nog werken
+    await bot.process_commands(message) #dit zorgt ervoor dat de andere commands nog werken
 	
 #wanneer iemand joint dan stuurt de bot een bericht
 @bot.listen('on_member_join')
