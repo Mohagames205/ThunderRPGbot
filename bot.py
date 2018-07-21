@@ -18,35 +18,25 @@ print ('Versie 1.3')
 @bot.event
 async def on_ready():
     await bot.edit_profile(username="GreyStripe")
-    await bot.change_presence(game=discord.Game(name='{}help | Warrior Cats'.format(cp)))
+    await bot.change_presence(game=discord.Game(name='Warrior Cats | Use {}help '.format(cp)))
     print('Bot is geladen als')
     print(bot.user.name)
     print(bot.user.id)
-	
-@bot.event
-async def on_command_error(error, ctx): # Volgorde error en ctx omgekeerd van wat documentatie zegt
-    if isinstance(error, commands.CheckFailure): # commands.MissingPermissions bestaat niet in deze versie
-        permission_check = ctx.command.checks[0] # Gaat er van uit dat er maar 1 check voor die commando is, nl. de permissie check
-        permissions = permission_check.__closure__[0].cell_contents # Python magie omdat discord.py geen manier voorziet om hier aan te geraken
-        permission_names = list(permissions.keys())
-        await ctx.bot.send_message(ctx.message.channel, "Mist de permissies: {}".format(permission_names))
-    else:
-        await bot.on_command_error(ctx, error)
 
+#Geeft de rol aan mensen die pas joinen
 @bot.event
 async def on_member_join(member):
 	rollie8 = discord.utils.get(member.server.roles, name="New")
 	await bot.add_roles(member, rollie8)
 	
-
-
+#Stuurt een bericht wanneer iemand de server verlaat
 @bot.event
 async def on_member_remove(member):
     server = member.server.get_channel("434077834684792832")
     fmt = ('{} left Warrior Cats RPG! ' .format(member))
     await bot.send_message(server, fmt.format(member, member.server))
 	
-
+#Bepaalt hoelang de bot online is
 async def tutorial_uptime():
     await bot.wait_until_ready()
     global minutes
@@ -60,6 +50,7 @@ async def tutorial_uptime():
             minutes = 0
             hour += 1
 			
+#de bot werkt hier als een soort chatbot
 @bot.event
 async def on_message(message):
     if message.content.lower().startswith('yeet'):
@@ -67,15 +58,17 @@ async def on_message(message):
 
     if message.content.lower().startswith('hi'):
         await bot.send_message(message.channel, "Hello, how are you doing <@{}>" .format(message.author.id))
-
+		
+	await bot.process_commands(message) #dit zorgt ervoor dat de andere commands nog werken
 	
+#wanneer iemand joint dan stuurt de bot een bericht
 @bot.listen('on_member_join')
 async def member_join_2(kakmens1):
     server = kakmens1.server.get_channel("434077834684792832")
     fmt = 'Welcome at {1.name}, {0.mention}, read the rules and enjoy the server!'
     await bot.send_message(server, fmt.format(kakmens1, kakmens1.server))
 	
-	
+#Kick command
 @bot.command(pass_context = True)
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, userName: discord.User):
@@ -83,6 +76,7 @@ async def kick(ctx, userName: discord.User):
     await bot.kick(userName)
     await bot.say("*** :white_check_mark: {} has been kicked***" .format(userName))
 	
+#ban command
 @bot.command(pass_context = True)
 @commands.has_permissions(ban_members=True)
 async def ban(ctx, userName: discord.User):
