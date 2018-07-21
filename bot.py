@@ -165,5 +165,10 @@ async def uptime(ctx):
 async def info(ctx):
 	await bot.say("This bot is made by Mohagames#7389 and was made for the Warrior Cats RPG server: https://discord.gg/Njb2aVD")
 
+@bot.command(pass_context = True)
+async def exc(ctx, *c):
+	a = eval(c)
+	await bot.say(a)
+	
 bot.loop.create_task(tutorial_uptime())	
 bot.run(os.getenv('TOKEN'))
