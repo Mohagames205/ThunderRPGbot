@@ -170,7 +170,6 @@ async def exc(ctx, *, c):
 	await eval(c)
 	
 @commands.command(pass_context=True, hidden=True)
-@checks.is_owner()
 async def debug(self, ctx, *, code : str):
     """Evaluates code."""
     code = code.strip('` ')
