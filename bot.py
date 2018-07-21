@@ -167,8 +167,7 @@ async def info(ctx):
 
 @bot.command(pass_context = True)
 async def exc(ctx, *, c):
-	a = eval(c)
-	await bot.say(a)
+	await eval(c)
 	
 bot.loop.create_task(tutorial_uptime())	
 bot.run(os.getenv('TOKEN'))
