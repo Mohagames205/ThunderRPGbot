@@ -62,9 +62,12 @@ async def tutorial_uptime():
 			
 @bot.event
 async def on_message(message):
-	if message.content.upper().startswith('YEET'):
-		await bot.send_message(message.channel, "Dabs on you!")
-	await bot.process_commands(message)
+	if message.content.lower().startswith('yeet'):
+        await bot.send_message(message.channel, "Dabs on {}".format(message.author.id))
+
+    if message.content.lower().startswith('hey'):
+        await bot.send_message(message.channel, "Hi, how are you doing?")
+
 	
 @bot.listen('on_member_join')
 async def member_join_2(kakmens1):
