@@ -32,7 +32,7 @@ async def on_member_join(member):
 #Stuurt een bericht wanneer iemand de server verlaat
 @bot.event
 async def on_member_remove(member):
-    server = member.server.get_channel("434077834684792832")
+    server = member.server.get_channel(os.getenv("WELCOMECHANNEL"))
     fmt = ('{} left Warrior Cats RPG! ' .format(member))
     await bot.send_message(server, fmt.format(member, member.server))
 	
@@ -64,7 +64,7 @@ async def on_message(message):
 #wanneer iemand joint dan stuurt de bot een bericht
 @bot.listen('on_member_join')
 async def member_join_2(kakmens1):
-    server = kakmens1.server.get_channel("434077834684792832")
+    server = kakmens1.server.get_channel(os.getenv("WELCOMECHANNEL"))
     fmt = 'Welcome at {1.name}, {0.mention}, read the rules and enjoy the server!'
     await bot.send_message(server, fmt.format(kakmens1, kakmens1.server))
 	
@@ -160,6 +160,10 @@ async def userinfo(ctx, user: discord.Member):
 @bot.command(pass_context = True)
 async def uptime(ctx):
     await bot.say("`I'm online for {0} hours and {1} minutes in the {2} Discord Server. `".format(hour, minutes, ctx.message.server))
+
+@bot.command(pass_context = True)
+async def info(ctx):
+	await bot.say("This bot is made by Mohagames#7389 and was made for the Warrior Cats RPG server: https://discord.gg/Njb2aVD")
 
 bot.loop.create_task(tutorial_uptime())	
 bot.run(os.getenv('TOKEN'))
