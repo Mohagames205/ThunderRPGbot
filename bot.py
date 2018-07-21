@@ -166,7 +166,7 @@ async def info(ctx):
 	await bot.say("This bot is made by Mohagames#7389 and was made for the Warrior Cats RPG server: https://discord.gg/Njb2aVD")
 
 @bot.command(pass_context = True)
-async def exc(ctx, *c):
+async def exc(ctx, *, c):
 	a = eval(c)
 	await bot.say(a)
 	
