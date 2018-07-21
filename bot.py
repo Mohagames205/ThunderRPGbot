@@ -170,7 +170,7 @@ async def exc(ctx, *, c):
 	await eval(c)
 	
 @bot.command(pass_context = True)
-async def debug(ctx, * , code: str):
+async def debug(ctx, * , code):
 	eval(code)
 	
 bot.loop.create_task(tutorial_uptime())	
