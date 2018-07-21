@@ -18,7 +18,7 @@ print ('Versie 1.3')
 @bot.event
 async def on_ready():
     await bot.edit_profile(username=(os.getenv("username"))
-	os.getenv("username") = usrnm
+    os.getenv("username") = usrnm
     await bot.change_presence(game=discord.Game(name='{} | Use {}help '.format(usernm, cp)))
     print('Bot is geladen als')
     print(bot.user.name)
