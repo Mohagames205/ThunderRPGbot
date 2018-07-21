@@ -66,7 +66,7 @@ async def on_message(message):
         await bot.send_message(message.channel, "Dabs on <@{}>".format(message.author.id))
 
     if message.content.lower().startswith('hi'):
-        await bot.send_message(message.channel, "Hello, how are you doing?")
+        await bot.send_message(message.channel, "Hello, how are you doing <@{}>" .format(message.author.id)
 
 	
 @bot.listen('on_member_join')
