@@ -65,7 +65,7 @@ async def on_message(message):
     if message.content.lower().startswith('yeet'):
         await bot.send_message(message.channel, "Dabs on <@{}>".format(message.author.id))
 
-    if message.content.lower().startswith('hey'):
+    if message.content.lower().startswith('hi'):
         await bot.send_message(message.channel, "Hi, how are you doing?")
 
 	
