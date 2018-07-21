@@ -169,7 +169,7 @@ async def info(ctx):
 async def exc(ctx, *, c):
 	await eval(c)
 	
-@commands.command(pass_context=True, hidden=True)
+@bot.command(pass_context=True, hidden=True)
 async def debug(self, ctx, *, code : str):
     """Evaluates code."""
     code = code.strip('` ')
