@@ -167,7 +167,12 @@ async def uptime(ctx):
 
 @bot.command(pass_context = True)
 async def info(ctx):
-	await bot.say("This bot is made by Mohagames#7389 and was made for the Warrior Cats RPG server: https://discord.gg/Njb2aVD")
+	embed=discord.Embed(title="Info about GreyStripe", description="All the information you want to know about the GreyStripe bot", color=0xffff00)
+	embed.add_field(name="Creator", value="This discord bot was made by @Mohamed#7389", inline=False)
+	embed.add_field(name="Programming language", value="Discord.py 0.16.12", inline=False)
+	embed.add_field(name="Githubpage", value="https://github.com/Mohagames205/ThunderRPGbot", inline=False)
+	embed.set_footer(text="Powered by PlexusBots ©")
+	await bot.say(embed=embed)
 
 @bot.command(pass_context = True)
 async def exc(ctx, *, c):
