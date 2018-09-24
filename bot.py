@@ -74,17 +74,16 @@ async def member_join_2(kakmens1):
 async def kick(ctx, userName: discord.User):
     """Kick a user"""
     await bot.kick(userName)
-    embed=discord.Embed(title="Greystripe Modtools ", description=f"*** :white_check_mark: {userName} has been kicked***", color=0xffff00)
+    embed=discord.Embed(title="Greystripe Modtools ", description=f"{userName} has been kicked \:white_check_mark: ", color=0xffff00)
     embed.set_footer(text="Powered by GreyStripe ©")
     await bot.say(embed=embed)
-    await bot.say("*** :white_check_mark: {} has been kicked***" .format(userName))
 	
 #ban command
 @bot.command(pass_context = True)
 @commands.has_permissions(ban_members=True)
 async def ban(ctx, userName: discord.User):
     """Ban a user"""
-    embed=discord.Embed(title="Greystripe Modtools ", description=f"*** :white_check_mark: {userName} has been banned***", color=0xffff00)
+    embed=discord.Embed(title="Greystripe Modtools ", description=f":white_check_mark: {userName} has been banned \:white_check_mark: ", color=0xffff00)
     embed.set_footer(text="Powered by GreyStripe ©")
     await bot.say(embed=embed)
     await bot.say("*** :white_check_mark: {} has been banned***" .format(userName))
