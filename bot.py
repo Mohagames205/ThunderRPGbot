@@ -174,6 +174,8 @@ async def info(ctx):
 	embed.set_footer(text="Powered by PlexusBots ©")
 	await bot.say(embed=embed)
 
+
+
 @bot.command(pass_context = True)
 async def exc(ctx, *, c):
 	await eval(c)
