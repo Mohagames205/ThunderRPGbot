@@ -158,7 +158,7 @@ async def unmute(ctx, member: discord.Member):
         role = discord.utils.get(member.server.roles, name='Muted')
         await bot.remove_roles(member, role)
         await bot.say("{} is unmuted!" .format(member))
-	except BaseException as error:
+    except BaseException as error:
         traceback.print_exc()
         await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
 
