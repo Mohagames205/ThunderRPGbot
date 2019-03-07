@@ -99,23 +99,32 @@ async def ban(ctx, userName: discord.User):
 @bot.command(pass_context = True)
 @commands.has_permissions(manage_messages = True)
 async def purge(ctx, number):
-	mgs = [] #Empty list to put all the messages in the log
-	number = int(number) #Converting the amount of messages to delete to an integer
-	async for x in bot.logs_from(ctx.message.channel, limit = number):
-		mgs.append(x)
-	await bot.delete_messages(mgs)
-	await bot.say("** {} messages have been deleted:white_check_mark:**".format(number))
+    try:
+        mgs = [] #Empty list to put all the messages in the log
+        number = int(number) #Converting the amount of messages to delete to an integer
+        async for x in bot.logs_from(ctx.message.channel, limit = number):
+            mgs.append(x)
+        await bot.delete_messages(mgs)
+        await bot.say("** {} messages have been deleted:white_check_mark:**".format(number))
+    except BaseException as error:
+        traceback.print_exc()
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
 
 @bot.command(pass_context = True)
 @commands.has_permissions(manage_messages = True)
 async def massdelete(ctx, number):
-    number = int(number) #Converting the amount of messages to delete to an integer
-    counter = 0
-    async for x in bot.logs_from(ctx.message.channel, limit = number):
-        if counter < number:
-            await bot.delete_message(x)
-            counter += 1
-            await asyncio.sleep(1.2) #1.2 second timer so the deleting process can be even
+    try:
+
+        number = int(number) #Converting the amount of messages to delete to an integer
+        counter = 0
+        async for x in bot.logs_from(ctx.message.channel, limit = number):
+            if counter < number:
+                await bot.delete_message(x)
+                counter += 1
+                await asyncio.sleep(1.2) #1.2 second timer so the deleting process can be even
+    except BaseException as error:
+        traceback.print_exc()
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
 			
 
 @bot.command(name="8ball")
@@ -129,22 +138,30 @@ async def choose(ctx, choice1, choice2):
 @bot.command(pass_context = True)
 @commands.has_role("Staff")
 async def mute(ctx, member: discord.Member, time, *, reason):
-    time  = int(time)
-    role = discord.utils.get(member.server.roles, name='Muted')
-    await bot.add_roles(member, role)
-    channel = ctx.message.channel
-    await bot.send_message(channel, "**:mute:| <@{}> You have been muted for:** {}\n**Reason:** {}\n**Admin/Mod:** <@{}>".format(member.id, time, reason, ctx.message.author.id))
-    await asyncio.sleep("{}".format(time))
-    role = discord.utils.get(member.server.roles, name='Muted')
-    await bot.remove_roles(member, role)
+    try:
+        time  = int(time)
+        role = discord.utils.get(member.server.roles, name='Muted')
+        await bot.add_roles(member, role)
+        channel = ctx.message.channel
+        await bot.send_message(channel, "**:mute:| <@{}> You have been muted for:** {}\n**Reason:** {}\n**Admin/Mod:** <@{}>".format(member.id, time, reason, ctx.message.author.id))
+        await asyncio.sleep("{}".format(time))
+        role = discord.utils.get(member.server.roles, name='Muted')
+        await bot.remove_roles(member, role)
+    except BaseException as error:
+        traceback.print_exc()
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
 	
 @bot.command(pass_context = True)
 @commands.has_role("Staff")
 async def unmute(ctx, member: discord.Member):
-	role = discord.utils.get(member.server.roles, name='Muted')
-	await bot.remove_roles(member, role)
-	await bot.say("{} is unmuted!" .format(member))
-		
+    try:
+        role = discord.utils.get(member.server.roles, name='Muted')
+        await bot.remove_roles(member, role)
+        await bot.say("{} is unmuted!" .format(member))
+	except BaseException as error:
+        traceback.print_exc()
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
+
 @bot.command(pass_context=True)
 async def serverinfo(ctx):
     embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), description="Here's what I could find:", color=0x00ff00)
@@ -159,14 +176,18 @@ async def serverinfo(ctx):
 
 @bot.command(pass_context=True)
 async def userinfo(ctx, user: discord.Member):
-    embed = discord.Embed(title="{}'s info".format(user.name), description="Here's what I could find:", color=0x00ff00)
-    embed.add_field(name="Name", value=user.name, inline=True)
-    embed.add_field(name="ID", value=user.id, inline=True)
-    embed.add_field(name="Status", value=user.status, inline=True)
-    embed.add_field(name="Highest role", value=user.top_role)
-    embed.add_field(name="Joined", value=user.joined_at)
-    embed.set_thumbnail(url=user.avatar_url)
-    await bot.say(embed=embed)
+    try:
+        embed = discord.Embed(title="{}'s info".format(user.name), description="Here's what I could find:", color=0x00ff00)
+        embed.add_field(name="Name", value=user.name, inline=True)
+        embed.add_field(name="ID", value=user.id, inline=True)
+        embed.add_field(name="Status", value=user.status, inline=True)
+        embed.add_field(name="Highest role", value=user.top_role)
+        embed.add_field(name="Joined", value=user.joined_at)
+        embed.set_thumbnail(url=user.avatar_url)
+        await bot.say(embed=embed)
+    except BaseException as error:
+        traceback.print_exc()
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
 	
 @bot.command(pass_context = True)
 async def uptime(ctx):
@@ -183,9 +204,15 @@ async def info(ctx):
 
 @bot.command(pass_context = True)
 async def verify(ctx):
-    member = ctx.message.author
-    verified_role = discord.utils.get(member.server.roles, name="Verified")
-    await bot.add_roles(member, verified_role)
+    try:
+
+        member = ctx.message.author
+        verified_role = discord.utils.get(member.server.roles, name="Verified")
+        await bot.add_roles(member, verified_role)
+
+    except BaseException as error:
+        traceback.print_exc()
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
 
 	
 bot.loop.create_task(tutorial_uptime())	
