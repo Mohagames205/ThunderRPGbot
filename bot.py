@@ -80,7 +80,7 @@ async def kick(ctx, userName: discord.User):
 	
 #ban command
 @bot.command(pass_context = True)
-@commands.has_permissions(ban_members=True)
+#@commands.has_permissions(ban_members=True)
 async def ban(ctx, userName: discord.User):
     """Ban a user"""
     embed=discord.Embed(title="Greystripe Modtools ", description=f":white_check_mark: {userName} has been banned \:white_check_mark: ", color=0xffff00)
@@ -175,14 +175,6 @@ async def info(ctx):
 	await bot.say(embed=embed)
 
 
-
-@bot.command(pass_context = True)
-async def exc(ctx, *, c):
-	await eval(c)
-	
-@bot.command(pass_context = True)
-async def debug(ctx, * , code):
-	exec(code)
 	
 bot.loop.create_task(tutorial_uptime())	
 bot.run(os.getenv('TOKEN'))
