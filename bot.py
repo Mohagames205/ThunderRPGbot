@@ -89,7 +89,9 @@ async def ban(ctx, userName: discord.User):
         embed=discord.Embed(title="Greystripe Modtools ", description=f"\✅ {userName} has been banned.", color=0xffff00)
         embed.set_footer(text="Powered by GreyStripe ©")
         await bot.say(embed=embed)
-    except:
+        
+    except BaseException as error:
+		traceback.print_exc()
         await bot.say("Something went wrong, please look into the logs <@239465856667615234>")
 
 
