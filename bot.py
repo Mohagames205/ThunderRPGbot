@@ -6,6 +6,7 @@ import random
 import json
 import os
 from datetime import *
+import traceback
 
 cp = '$'
 bot = commands.Bot(command_prefix=cp)
