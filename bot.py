@@ -93,7 +93,7 @@ async def ban(ctx, userName: discord.User):
 
     except BaseException as error:
         traceback.print_exc()
-        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>```py\n{error}```")
 
 
 @bot.command(pass_context = True)
@@ -108,7 +108,7 @@ async def purge(ctx, number):
         await bot.say("** {} messages have been deleted:white_check_mark:**".format(number))
     except BaseException as error:
         traceback.print_exc()
-        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>```py\n{error}```")
 
 @bot.command(pass_context = True)
 @commands.has_permissions(manage_messages = True)
@@ -124,7 +124,7 @@ async def massdelete(ctx, number):
                 await asyncio.sleep(1.2) #1.2 second timer so the deleting process can be even
     except BaseException as error:
         traceback.print_exc()
-        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>```py\n{error}```")
 			
 
 @bot.command(name="8ball")
@@ -149,7 +149,7 @@ async def mute(ctx, member: discord.Member, time, *, reason):
         await bot.remove_roles(member, role)
     except BaseException as error:
         traceback.print_exc()
-        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>```py\n{error}```")
 	
 @bot.command(pass_context = True)
 @commands.has_role("Staff")
@@ -160,7 +160,7 @@ async def unmute(ctx, member: discord.Member):
         await bot.say("{} is unmuted!" .format(member))
     except BaseException as error:
         traceback.print_exc()
-        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>```py\n{error}```")
 
 @bot.command(pass_context=True)
 async def serverinfo(ctx):
@@ -187,7 +187,7 @@ async def userinfo(ctx, user: discord.Member):
         await bot.say(embed=embed)
     except BaseException as error:
         traceback.print_exc()
-        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>```py\n{error}```")
 	
 @bot.command(pass_context = True)
 async def uptime(ctx):
@@ -212,7 +212,7 @@ async def verify(ctx):
 
     except BaseException as error:
         traceback.print_exc()
-        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>```py\n{error}```")
 
 	
 bot.loop.create_task(tutorial_uptime())	
