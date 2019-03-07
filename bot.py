@@ -93,7 +93,7 @@ async def ban(ctx, userName: discord.User):
 
     except BaseException as error:
         traceback.print_exc()
-        await bot.say("Something went wrong, please look into the logs <@239465856667615234>")
+        await bot.say(f"Something went wrong, please look into the logs <@239465856667615234>\n ```py\n{error}```")
 
 
 @bot.command(pass_context = True)
@@ -178,9 +178,14 @@ async def info(ctx):
 	embed.add_field(name="Creator", value="This discord bot was made by @Mohamed#7389", inline=False)
 	embed.add_field(name="Programming language", value="Discord.py 0.16.12", inline=False)
 	embed.add_field(name="Githubpage", value="https://github.com/Mohagames205/ThunderRPGbot", inline=False)
-	embed.set_footer(text="Powered by PlexusBots ©")
+	embed.set_footer(text="Made by Mohamed")
 	await bot.say(embed=embed)
 
+@bot.command(pass_context = True)
+async def verify(ctx):
+    member = ctx.message.author
+    verified_role = discord.utils.get(member.server.roles, name="Verified")
+    await bot.add_roles(member, verified_role)
 
 	
 bot.loop.create_task(tutorial_uptime())	
